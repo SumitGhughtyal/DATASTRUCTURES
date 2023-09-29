@@ -3,13 +3,15 @@
 
 
 using namespace std;
+
+template<class T>
 class Array
 {
 private:
-    int *A;
+    T *A;
     int size;
     int length;
-    void swap(int *x, int *y);
+    void swap(T *x, T *y);
 
 public:
     Array(int size, int length)
@@ -22,7 +24,7 @@ public:
         this->size=size;
         this->length=length;
 
-        A = new int[size];
+        A = new T[size];
 
         cout<<"Enter Elements of Array : "<<endl;
         for(int i=0;i<length;i++)
@@ -37,24 +39,24 @@ public:
     }
 
     void Display();
-    void Insert(int index, int key);
-    int Delete(int index);
-    int Get(int index);
-    void Set(int index, int key);
-    void Append(int value);
-    int LinearSearch(int key);
-    int BinarySearch(int key);
-    int max();
-    int min();
+    void Insert(int index, T key);
+    T Delete(int index);
+    T Get(int index);
+    void Set(int index, T key);
+    void Append(T value);
+    int LinearSearch(T key);
+    int BinarySearch(T key);
+    T max();
+    T min();
     int sum();
     float avg();
-    void InsertSort(int value);
+    void InsertSort(T value);
     void Reverse();
     int isSorted();
-    Array MergeSort(Array &B);
-    Array Union(Array &B);
-    Array Intersection(Array& B);
-    Array Difference(Array &B);
+    Array<T> MergeSort(Array<T> &B);
+    Array<T> Union(Array<T> &B);
+    Array<T> Intersection(Array<T>& B);
+    Array<T> Difference(Array<T> &B);
 
 
 
@@ -76,23 +78,23 @@ int main()
     cout<<"Enter length of the Array : "<<flush;
     cin>>length;
 
-    Array A(size,length);
+    Array<int> A(size,length);
     A.Display();
 
 
     return 0;
 }
 
-
-void Array::Display()
+template<class T>
+void Array<T>::Display()
 {
     cout<<"Elements of list are : ";
     for(int i=0;i<length;i++)
         cout<<A[i]<<" ";   
     cout<<endl; 
 }
-
-void Array::Insert(int index, int key)
+template<class T>
+void Array<T>::Insert(int index, T key)
 {
     if(length==size){ cout<<"Array is Full."; exit(0);}
     if(index>=0 && index<=length)
@@ -103,22 +105,24 @@ void Array::Insert(int index, int key)
     }
     else cout<<"Invalid Index"<<endl;
 }
-
-int Array::Delete(int index)
+template<class T>
+T Array<T>::Delete(int index)
 {
-    int x=A[index];
+    T x=A[index];
     for(int i=index;i<length;i++)
         A[i]=A[i+1];
     length--;
     return x;
 }
 
-int Array::Get(int index)
+template<class T>
+T Array<T>::Get(int index)
 {
     return A[index];
 }
 
-void Array::Set(int index, int key)
+template<class T>
+void Array<T>::Set(int index, T key)
 {
     if(index>=0 && index<=length)
         A[index]=key;
@@ -127,20 +131,23 @@ void Array::Set(int index, int key)
 
 }
 
-void Array::swap(int *x, int *y)
+template<class T>
+void Array<T>::swap(T *x, T *y)
 {
-    int temp=*x;
+    T temp=*x;
     *x = *y;
     *y = temp;
 }
 
-void Array::Append(int value)
+template<class T>
+void Array<T>::Append(T value)
 {
     A[length]=value;
     length++;
 }
 
-int Array::LinearSearch(int key)
+template<class T>
+int Array<T>::LinearSearch(T key)
 {
     int i;
     for(i=0;i<length;i++)
@@ -154,7 +161,8 @@ int Array::LinearSearch(int key)
     return -1;
 }
 
-int Array::BinarySearch(int key)
+template<class T>
+int Array<T>::BinarySearch(T key)
 {
     sort(A, A+length);
     int l,mid,h;
@@ -172,8 +180,9 @@ int Array::BinarySearch(int key)
 
 }
 
-int Array::max(){
-    int max=A[0];
+template<class T>
+T Array<T>::max(){
+    T max=A[0];
     for(int i=0;i<length;i++)
     {
         if(A[i]>max) max=A[i];
@@ -182,9 +191,10 @@ int Array::max(){
 
 }
 
-int Array::min()
+template<class T>
+T Array<T>::min()
 {
-    int min=A[0];
+    T min=A[0];
     for(int i=0;i<length;i++)
     {
         if(A[i]<min) min=A[i];
@@ -193,23 +203,26 @@ int Array::min()
 
 }
 
-int Array::sum()
+template<class T>
+int Array<T>::sum()
 {
     int sum=0;
     for(int i=0;i<length;i++)
     {
-        sum+=A[i];
+        sum+=(int)A[i];
     }
     return sum;
 
 }
 
-float Array::avg()
+template<class T>
+float Array<T>::avg()
 {
     return sum()/length;
 }
 
-void Array::InsertSort(int value)
+template<class T>
+void Array<T>::InsertSort(T value)
 {
     sort(A, A+length);
     if(length==size){ cout<<"Array is Full."; exit(0);}
@@ -225,10 +238,11 @@ void Array::InsertSort(int value)
 
 }
 
-void Array::Reverse()
+template<class T>
+void Array<T>::Reverse()
 {
-    int *B;
-    B = new int[size];
+    T *B;
+    B = new T[size];
     int i,j;
     for(int i=length-1,j=0;i>=0;i--,j++)
     {
@@ -243,7 +257,8 @@ void Array::Reverse()
     
 }
 
-int Array::isSorted()
+template<class T>
+int Array<T>::isSorted()
 {
     for(int i=0;i<length;i++)
     {
@@ -255,7 +270,8 @@ int Array::isSorted()
     return 1;
 }
 
-Array Array::MergeSort(Array &B)
+template<class T>
+Array<T> Array<T>::MergeSort(Array<T> &B)
 {
     Array C(size+B.size, length+B.length);
     int i,j,k;
@@ -279,7 +295,8 @@ Array Array::MergeSort(Array &B)
     return C;
 }
 
-Array Array::Union(Array &B)
+template<class T>
+Array<T> Array<T>::Union(Array<T> &B)
 {
     Array C(size+B.size, length+B.length);
     int i,j,k;
@@ -306,7 +323,8 @@ Array Array::Union(Array &B)
     return C;
 }
 
-Array Array::Intersection(Array& B)
+template<class T>
+Array<T> Array<T>::Intersection(Array<T>& B)
 {
     Array C(size+B.size, length+B.length);
     int i,j,k;
@@ -330,7 +348,8 @@ Array Array::Intersection(Array& B)
     return C;
 }
 
-Array Array::Difference(Array &B)
+template<class T>
+Array<T> Array<T>::Difference(Array<T> &B)
 {
     Array C(size+B.size, length+B.length);
     int i,j,k;
